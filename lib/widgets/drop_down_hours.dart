@@ -13,12 +13,26 @@ class DropDownHours extends StatefulWidget {
 
 class _DropDownHoursState extends State<DropDownHours> {
 
-  List<String> _horarios = ['11:00-11:30','11:30-12:00','12:00-12:30','12:30-13:00','13:00-13:30','13:30-14:00'];
-  String _optSeleccionada = '11:00-11:30';
-  
+  List<DateTime> _horarios = [
+    DateTime.utc(2021,01,01,10,00), DateTime.utc(2021,01,01,10,30), DateTime.utc(2021,01,01,11,00), DateTime.utc(2021,01,01,11,30),
+    DateTime.utc(2021,01,01,12,00), DateTime.utc(2021,01,01,12,30), DateTime.utc(2021,01,01,13,00), DateTime.utc(2021,01,01,13,30),
+    DateTime.utc(2021,01,01,20,00), DateTime.utc(2021,01,01,20,30), DateTime.utc(2021,01,01,21,00), DateTime.utc(2021,01,01,21,30), 
+    DateTime.utc(2021,01,01,22,00), DateTime.utc(2021,01,01,22,30),
+  ];
+
+  List<DateTime> _horariosFiltrados = [];
+    
   @override
-  Widget build(BuildContext context){
-    widget.pedido.horaEntrega = _optSeleccionada;  
+  Widget build(BuildContext context){ 
+  _horarios.forEach((horario){
+        if (horario.hour.toInt() > DateTime.now().hour.toInt()) {
+            _horariosFiltrados.add(horario);
+        } else if (horario.hour.toInt() == DateTime.now().hour.toInt() && horario.minute.toInt() > DateTime.now().minute.toInt() ){
+            _horariosFiltrados.add(horario);
+        }
+  });
+  DateTime _optSeleccionada = _horariosFiltrados[0];
+    
   return Row(
       children: <Widget> [
         Icon(Icons.watch_later_outlined, color: primaryColor, size: 26),
@@ -37,30 +51,31 @@ class _DropDownHoursState extends State<DropDownHours> {
             ),
             onChanged: (opt) {
               setState(() {
-                if( opt != 'Hora de entrega' ) {
                   _optSeleccionada = opt;
-                  widget.pedido.horaEntrega = _optSeleccionada;
-                }
-                
-              });
-
+                  widget.pedido.horaEntrega = _optSeleccionada.toString().substring(11,16);
+              });              
             },
           )
         )
       ],
-
     );
   }
 
-  List<DropdownMenuItem<String>> getOpcionesDropDown() {
+  List<DropdownMenuItem<DateTime>> getOpcionesDropDown() {
 
-    List<DropdownMenuItem<String>> lista = [];
+    List<DropdownMenuItem<DateTime>> lista = [];
     _horarios.forEach((horario){
-      lista.add(DropdownMenuItem(
-      child: Text(horario),
-      value: horario,
-      ));
-
+        if (horario.hour.toInt() > DateTime.now().hour.toInt()) {
+          lista.add(DropdownMenuItem(
+          child: Text(horario.toString().substring(11,16)),
+          value: horario,
+        ));
+        } else if (horario.hour.toInt() == DateTime.now().hour.toInt() && horario.minute.toInt() > DateTime.now().minute.toInt()) {
+                    lista.add(DropdownMenuItem(
+                    child: Text(horario.toString().substring(11,16)),
+                    value: horario,
+                  ));
+        }
     });
     return lista;
 

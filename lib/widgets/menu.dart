@@ -35,10 +35,10 @@ class Menu extends StatelessWidget {
             leading: Icon(Icons.person, color: primaryColor),
             title: Text('Mi Cuenta'),
             onTap: () {
-              Navigator.pushReplacementNamed(context, 'accountsSettings');
+              Navigator.pushNamed(context, 'accountsSettings');
             },
           ),
-                    ListTile(
+          ListTile(
             leading: Icon(Icons.shopping_bag, color: primaryColor),
             title: Text('Mis Pedidos'),
             onTap: () {

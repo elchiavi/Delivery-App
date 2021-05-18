@@ -66,7 +66,7 @@ class __FormState extends State<_Form> {
                   FocusScope.of(context).unfocus();
                   final registerOk =  await usuarioProvider.nuevoUsuario(emailCtrol.text.trim(), passCtrol.text.trim() );
                   if (registerOk){
-                      Navigator.pushReplacementNamed(context, 'home');
+                      Navigator.pushReplacementNamed(context, 'login');
                  }else {
                       mostrarAlerta(context, 'El usuario ya existe');
                  }
