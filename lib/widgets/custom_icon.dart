@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/constants.dart';
 
 class CustomIcon extends StatelessWidget {
 
@@ -18,10 +19,12 @@ class CustomIcon extends StatelessWidget {
           child: SafeArea(
             child: Column(
               children: <Widget> [
-                ClipRRect(
+                 ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
                   child: Image(image: AssetImage('assets/logo2.png'))
                 ),
+                SizedBox(height: 20),
+                Text(this.title, style: TextStyle(color: primaryColor, fontSize: 24, fontWeight: FontWeight.bold )),
               ],),
           ),
 

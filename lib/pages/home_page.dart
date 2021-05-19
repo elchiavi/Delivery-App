@@ -22,20 +22,26 @@ class HomePage extends StatelessWidget {
     prefs.ultimaPagina = 'home';
 
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: customAppBar(context),
-      drawer: Menu(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            HeaderWithSearch(size: size),
-            ListItemCategory(),
-            _HomeBodyPage(),
-          ],
+    return WillPopScope(
+        onWillPop: () async {
+            exitHome(context, '¿Realmente desea salir de la aplicación?');
+            return true;
+        },
+        child: Scaffold(
+          appBar: customAppBar(context),
+          drawer: Menu(),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                HeaderWithSearch(size: size),
+                ListItemCategory(),
+                _HomeBodyPage(),
+              ],
+            ),
+          ),
         ),
-      ),
-      //bottomNavigationBar: BottonNavBar(),
     );
+    
   }
 }
 

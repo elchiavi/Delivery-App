@@ -14,7 +14,7 @@ class LoginPage extends StatelessWidget {
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.8,
+            height: MediaQuery.of(context).size.height * 0.75,
             child: Column(
               mainAxisAlignment:  MainAxisAlignment.spaceBetween,
               children: <Widget> [

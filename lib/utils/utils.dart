@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/preferencias_usuario/preferencia_usuario.dart';
 import 'package:food_delivery/providers/notification_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -90,6 +91,40 @@ void mostrarAlerta( BuildContext context, String mensaje) {
             ),
             onPressed: () => Navigator.of(context).pop(), 
             child: Text('Ok'))
+        ],
+      );
+    });
+}
+
+
+void exitHome( BuildContext context, String mensaje) {
+
+
+  final prefs = new PreferenciasUsuario();
+
+  showDialog(
+    context: context, 
+    builder: (context){
+      return AlertDialog(
+        content: Text(mensaje),
+        actions: <Widget> [
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                      primary: primaryColor, // background
+                      onPrimary: Colors.white, // foreground
+            ),
+            onPressed: () => Navigator.of(context).pop(), 
+            child: Text('No')),
+                      ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                      primary: primaryColor, // background
+                      onPrimary: Colors.white, // foreground
+            ),
+            onPressed: () => {
+              prefs.ultimaPagina = 'login',
+              Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false), 
+            },
+            child: Text('Si'))
         ],
       );
     });

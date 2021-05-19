@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery/providers/usuarios_providers.dart';
 import 'package:food_delivery/utils/utils.dart';
@@ -16,7 +18,7 @@ class RegisterPage extends StatelessWidget {
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.8,
+            height: MediaQuery.of(context).size.height * 0.75,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget> [
@@ -66,9 +68,14 @@ class __FormState extends State<_Form> {
                   FocusScope.of(context).unfocus();
                   final registerOk =  await usuarioProvider.nuevoUsuario(emailCtrol.text.trim(), passCtrol.text.trim() );
                   if (registerOk){
-                      Navigator.pushReplacementNamed(context, 'login');
+                     mostrarSnackbar(context, 'Usuario creado correctamente');
+                     Timer(
+                          Duration(milliseconds: 1000),
+                          () {
+                          Navigator.pushReplacementNamed(context, 'login');
+                          });
                  }else {
-                      mostrarAlerta(context, 'El usuario ya existe');
+                     mostrarAlerta(context, 'El usuario ya existe');
                  }
                 },
               )
