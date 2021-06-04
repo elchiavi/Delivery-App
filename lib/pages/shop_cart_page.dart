@@ -101,7 +101,7 @@ class _ShopCartPageState extends State<ShopCartPage> {
                     PedidoModel pedido = new PedidoModel();
                     pedido.delivery = cartCounterProv.delivery;
                     pedido.estado = cartCounterProv.estadoPedido;
-                    pedido.total = total + costoDelivery;
+                    pedido.total = total + costoDelivery.toDouble();
                     pedido.productos = cartCounterProv.listaProductos;
                     Navigator.pushNamed(context, 'confirmation', arguments: pedido);
               } 

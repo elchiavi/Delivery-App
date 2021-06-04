@@ -13,7 +13,6 @@ import 'package:food_delivery/providers/navbar_selected_provider.dart';
 import 'package:food_delivery/providers/notification_provider.dart';
 import 'package:food_delivery/providers/ui_provider.dart';
 
-
 void main() async {
   // para que bloquee la opcion horizontal (giro aut)
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +29,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => new CartCounterProvider()),
     ], child: new MyApp()));
   });
+  
 }
 
 class MyApp extends StatelessWidget {
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           textTheme: Theme.of(context).textTheme.apply(bodyColor: textColor),
           backgroundColor: backColor),
       initialRoute: prefs.ultimaPagina,
-      routes: appRoutes
+      routes: appRoutes,
     );
   }
 }

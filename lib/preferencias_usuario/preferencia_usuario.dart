@@ -35,4 +35,44 @@ class PreferenciasUsuario {
       _prefs.setString('ultimaPagina', value);
     }
 
+    get nombre {
+      return _prefs.getString('nombre');
+    }
+
+    set nombre( String value ) {
+      _prefs.setString('nombre', value);
+    }
+
+    get apellido {
+      return _prefs.getString('apellido');
+    }
+
+    set apellido( String value ) {
+      _prefs.setString('apellido', value);
+    }
+
+    get direccion {
+      return _prefs.getString('direccion');
+    }
+
+    set direccion( String value ) {
+      _prefs.setString('direccion', value);
+    }
+
+    get telefono {
+      return _prefs.getString('telefono');
+    }
+
+    set telefono( String value ) {
+      _prefs.setString('telefono', value);
+    }
+
+    get email {
+      return _prefs.getString('email');
+    }
+
+    set email( String value ) {
+      _prefs.setString('email', value);
+    }
+
   }

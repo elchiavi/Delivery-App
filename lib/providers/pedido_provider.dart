@@ -15,5 +15,25 @@ class PedidosProvider {
     return true;
   }
 
+  Future<List<PedidoModel>> getPedidos(String email) async {
+
+    final url = '$_url.json';
+    final resp = await http.get(Uri.parse(url));
+
+    final Map<String, dynamic> decodedData = json.decode(resp.body);
+    final List<PedidoModel> pedidos = [];
+    if (decodedData == null) return [];
+
+    decodedData.forEach((id, pedido) {
+
+    final pedidoTemp = PedidoModel.fromJson(pedido);
+    if (pedidoTemp.email == email) {
+        pedidoTemp.id = id;
+        pedidos.add(pedidoTemp);
+      }  
+    });
+    return pedidos;
+  }
+
 
 }

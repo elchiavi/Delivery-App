@@ -2,9 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
-import 'package:food_delivery/models/usuario_model.dart';
+import 'package:food_delivery/preferencias_usuario/preferencia_usuario.dart';
 import 'package:food_delivery/providers/notification_provider.dart';
-import 'package:food_delivery/providers/usuarios_providers.dart';
 import 'package:food_delivery/utils/utils.dart';
 import 'package:food_delivery/widgets/custom_all_widgets.dart';
 import 'package:provider/provider.dart';
@@ -12,10 +11,10 @@ import 'package:provider/provider.dart';
 class AccountSettingsPage extends StatelessWidget {
 
   final formKey = GlobalKey<FormState>();
+  final prefs = new PreferenciasUsuario();
 
   @override
   Widget build(BuildContext context) {
-    final usuario = Provider.of<UsuarioProvider>(context).userLogeado;
     return Scaffold(
       appBar: customAppBar(context),
       drawer: Menu(),
@@ -33,10 +32,10 @@ class AccountSettingsPage extends StatelessWidget {
                       ),
                       SizedBox(height: 15),
                       TextFormField(
-                          onSaved: (value) => usuario.nombre = value,
+                          onSaved: (value) => prefs.nombre = value,
                           textCapitalization: TextCapitalization.none,
                           style: const TextStyle(color: primaryColor),
-                          initialValue: usuario.nombre,
+                          initialValue: prefs.nombre,
                           decoration:  InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20)
@@ -54,9 +53,9 @@ class AccountSettingsPage extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       TextFormField(
-                          onSaved: (value) => usuario.apellido = value,
+                          onSaved: (value) => prefs.apellido = value,
                           textCapitalization: TextCapitalization.none,
-                          initialValue: usuario.apellido,
+                          initialValue: prefs.apellido,
                           style: const TextStyle(color: primaryColor),
                           decoration:  InputDecoration(
                           border: OutlineInputBorder(
@@ -75,9 +74,9 @@ class AccountSettingsPage extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       TextFormField(
-                            onSaved: (value) => usuario.direccion = value,
+                            onSaved: (value) => prefs.direccion = value,
                             textCapitalization: TextCapitalization.none,
-                            initialValue: usuario.direccion,
+                            initialValue: prefs.direccion,
                             style: const TextStyle(color: primaryColor),
                             decoration:  InputDecoration(
                             border: OutlineInputBorder(
@@ -98,9 +97,9 @@ class AccountSettingsPage extends StatelessWidget {
                       SizedBox(height: 20),
                       TextFormField(
                             style: const TextStyle(color: primaryColor),
-                            initialValue: usuario.telefono,
+                            initialValue: prefs.telefono,
                             textCapitalization: TextCapitalization.none,
-                            onSaved: (value) => usuario.telefono = value,
+                            onSaved: (value) => prefs.telefono = value,
                             decoration:  InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20)
@@ -124,7 +123,7 @@ class AccountSettingsPage extends StatelessWidget {
                       TextFormField(
                             style: const TextStyle(color: primaryColor),
                             textCapitalization: TextCapitalization.none,
-                            initialValue: usuario.email,
+                            initialValue: prefs.email,
                             enabled: false,
                             decoration:  InputDecoration(
                                 border: OutlineInputBorder(
@@ -137,7 +136,7 @@ class AccountSettingsPage extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 40),
-                            child: buttonActualiceAcount(context, usuario)
+                            child: buttonActualiceAcount(context)
                       ), 
                     ],
                   ),
@@ -147,7 +146,7 @@ class AccountSettingsPage extends StatelessWidget {
     );
   }
                       
-  Widget buttonActualiceAcount(BuildContext context, UsuarioModel usuario) {
+  Widget buttonActualiceAcount(BuildContext context) {
 
     bool guardando = Provider.of<NotificationModel>(context).guardando;
 
@@ -168,7 +167,6 @@ class AccountSettingsPage extends StatelessWidget {
       onPressed: (guardando) ? null : () => {
         if (formKey.currentState.validate()) {
             formKey.currentState.save(),
-            Provider.of<UsuarioProvider>(context, listen: false).editarUsuario(usuario),
             Provider.of<NotificationModel>(context, listen: false).guardando = true,
             mostrarSnackbar(context, 'Datos Actualizados'),
             Timer(

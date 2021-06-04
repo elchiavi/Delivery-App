@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
-import 'package:food_delivery/providers/usuarios_providers.dart';
-import 'package:provider/provider.dart';
+import 'package:food_delivery/preferencias_usuario/preferencia_usuario.dart';
+
+final prefs = new PreferenciasUsuario();
 
 class HeaderWithSearch extends StatelessWidget {
   const HeaderWithSearch({
@@ -13,7 +14,6 @@ class HeaderWithSearch extends StatelessWidget {
     
   @override
   Widget build(BuildContext context) {
-    final usuario = Provider.of<UsuarioProvider>(context).userLogeado;
     return Container(
       margin: EdgeInsets.only(bottom: defaultPadding * 2.5),
       height: size.height * 0.2,
@@ -35,12 +35,12 @@ class HeaderWithSearch extends StatelessWidget {
             ),
             child: Row(
               children: <Widget> [
-                (usuario.nombre == null)                
+                (prefs.nombre == null)                
                 ? Text('¡Bienvenido!', style: Theme.of(context).textTheme.headline5.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
                 )
-                : Text('¡Hola ${usuario.nombre}!', style: Theme.of(context).textTheme.headline5.copyWith(
+                : Text('¡Hola ${prefs.nombre}!', style: Theme.of(context).textTheme.headline5.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.bold)
                 ),

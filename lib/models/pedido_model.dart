@@ -1,7 +1,5 @@
 import 'dart:convert';
-
-import 'package:food_delivery/models/cart_producto_model.dart';
-
+//import 'package:food_delivery/models/cart_producto_model.dart';
 PedidoModel pedidoModelFromJson(String str) => PedidoModel.fromJson(json.decode(str));
 
 String pedidoModelToJson(PedidoModel data) => json.encode(data.toJson());
@@ -17,7 +15,8 @@ class PedidoModel {
       this.horaEntrega,
       this.celular,
       this.aclaraciones,
-      this.productos
+      this.productos,
+      this.email,
 
     });
 
@@ -28,10 +27,11 @@ class PedidoModel {
     String estado;
     String direccion = 'Pelegrini 1644'; // direccion por defecto si no es a domicilio
     String diaEntrega;
-    String horaEntrega = '';
+    String horaEntrega;
     String celular;
     String aclaraciones;
-    List<CartProductoModel> productos;
+    List<dynamic> productos;
+    String email;
 
     factory PedidoModel.fromJson(Map<String, dynamic> json) => PedidoModel(
         id: json["id"],
@@ -44,6 +44,7 @@ class PedidoModel {
         celular: json["celular"],
         aclaraciones: json["aclaraciones"],
         productos: json["productos"],
+        email: json["email"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -57,6 +58,7 @@ class PedidoModel {
         "celular": celular,
         "aclaraciones": aclaraciones,
         "productos": productos,
+        "email": email,
     };
 
 

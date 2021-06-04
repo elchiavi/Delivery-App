@@ -15,6 +15,8 @@ export 'package:food_delivery/widgets/custom_icon.dart';
 export 'package:food_delivery/widgets/custom_button.dart';
 export 'package:food_delivery/widgets/custom_input.dart';
 export 'package:food_delivery/widgets/menu.dart';
+export 'package:food_delivery/widgets/list_card_orders.dart';
+
 
 
 

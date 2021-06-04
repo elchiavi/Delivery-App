@@ -37,17 +37,17 @@ class CartCounter extends StatelessWidget {
 
 Widget _buildOutlineButton({IconData icon, Function press}) { 
 return SizedBox(
-      width: 40,
+      width: 32,
       height: 32,
       child: OutlinedButton(
         onPressed: press,
-        child: Icon(icon),
+        child: Icon(icon,),
         style: OutlinedButton.styleFrom(
           padding: EdgeInsets.zero,
           primary: primaryColor,
           side: BorderSide(color: primaryColor, width: 1),
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10))),
+              borderRadius: BorderRadius.circular(40))),
         ),
     );
 }

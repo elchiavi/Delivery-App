@@ -11,7 +11,6 @@ class UsuarioProvider extends ChangeNotifier {
   final String _firebaseToken = 'AIzaSyA-Hvd3veJqqYDziGYPdaft-YgEEWTSYRY';
   final _prefs = new PreferenciasUsuario();
   bool _autenticando = false;
-  UsuarioModel _userLogeado = new UsuarioModel();
 
   bool get autenticando => this._autenticando;
 
@@ -20,12 +19,6 @@ class UsuarioProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  UsuarioModel get userLogeado => this._userLogeado;
-
-  set userLogeado(UsuarioModel valor) {
-    this._userLogeado = valor;
-    notifyListeners();
-  }
 
   Future<bool> crearUsuario(UsuarioModel usuario) async {
 
@@ -101,8 +94,12 @@ class UsuarioProvider extends ChangeNotifier {
       List<UsuarioModel> usuarios = await getUsuarios();
       usuarios.forEach((user) {
           if (user.email == email) {
-            this.userLogeado = user;
-          } 
+            _prefs.nombre = user.nombre;
+            _prefs.apellido = user.apellido;
+            _prefs.direccion = user.direccion;
+            _prefs.telefono = user.telefono;
+            _prefs.email = user.email;
+          }
       });
       return true;
     }else {

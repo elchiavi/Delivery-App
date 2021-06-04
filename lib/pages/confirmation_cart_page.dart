@@ -4,11 +4,10 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/models/pedido_model.dart';
-import 'package:food_delivery/models/usuario_model.dart';
+import 'package:food_delivery/preferencias_usuario/preferencia_usuario.dart';
 import 'package:food_delivery/providers/cart_counter_provider.dart';
 import 'package:food_delivery/providers/notification_provider.dart';
 import 'package:food_delivery/providers/pedido_provider.dart';
-import 'package:food_delivery/providers/usuarios_providers.dart';
 import 'package:food_delivery/utils/utils.dart';
 import 'package:food_delivery/widgets/custom_all_widgets.dart';
 import 'package:provider/provider.dart';
@@ -24,11 +23,12 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
   String _fecha = '';
   TextEditingController _inputFieldDataControlerFecha = new TextEditingController();
   TextEditingController _inputFieldDataControlerHora = new TextEditingController();
+  final prefs = new PreferenciasUsuario();
 
   @override
   Widget build(BuildContext context) {    
     final PedidoModel pedido = ModalRoute.of(context).settings.arguments;
-    final usuario = Provider.of<UsuarioProvider>(context).userLogeado;
+    pedido.email = prefs.email;
     return Scaffold(
       appBar: _customAppBar(),
       drawer: Menu(),
@@ -65,7 +65,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                                       ),
                                     ],
                                 ) 
-                                : _crearDireccion(pedido,usuario),
+                                : _crearDireccion(pedido),
                                   SizedBox(height: 5),
                                   _crearFechaEntrega(pedido),
                                   SizedBox(height: 10),
@@ -75,7 +75,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                                     height: 30,
                                     color: primaryColor,
                                   ),
-                                  _crearTelefono(pedido,usuario),
+                                  _crearTelefono(pedido),
                                   SizedBox(height: 10),
                                   _crearAclaracion(pedido)
                               ],
@@ -93,13 +93,13 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
     );
   }
 
-  Widget _crearDireccion(PedidoModel pedido, UsuarioModel usuario) {
+  Widget _crearDireccion(PedidoModel pedido) {
 
       return TextFormField(
           onSaved: (value) => pedido.direccion = value,
           textCapitalization: TextCapitalization.none,
           style: const TextStyle(color: primaryColor),
-          initialValue: usuario.direccion,
+          initialValue: prefs.direccion,
           decoration:  InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20)
@@ -233,13 +233,13 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
 
   }
 
-  Widget _crearTelefono(PedidoModel pedido, UsuarioModel usuario) {
+  Widget _crearTelefono(PedidoModel pedido) {
 
     return TextFormField(
         style: const TextStyle(color: primaryColor),
         textCapitalization: TextCapitalization.none,
         onSaved: (value) => pedido.celular = value,
-        initialValue: usuario.telefono,
+        initialValue: prefs.telefono,
         decoration:  InputDecoration(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20)

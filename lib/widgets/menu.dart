@@ -42,7 +42,7 @@ class Menu extends StatelessWidget {
             leading: Icon(Icons.shopping_bag, color: primaryColor),
             title: Text('Mis Pedidos'),
             onTap: () {
-              //Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+              Navigator.pushNamed(context, 'myOrders');
             },
           ),
           Divider(
@@ -53,6 +53,7 @@ class Menu extends StatelessWidget {
             title: Text('Cerrar Sesión'),
             onTap: () {
               prefs.ultimaPagina = 'login';
+              _resetearPrefs();
               Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
             },
           )
@@ -60,5 +61,13 @@ class Menu extends StatelessWidget {
       ),
       
     );
+  }
+
+  _resetearPrefs() {
+    prefs.nombre = '';
+    prefs.apellido = '';
+    prefs.direccion = '';
+    prefs.telefono = '';
+    prefs.email = '';
   }
 }
